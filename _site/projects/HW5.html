@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<!--
+  portfolYOU Jekyll theme by Youssef Raafat
+  Free for personal and commercial use under the MIT license
+  https://github.com/YoussefRaafatNasry/portfolYOU
+  Updates for JPN Fall 2024
+  FALL2024ID47295
+-->
+
+<html lang="en" class="h-100">
+
+<head>
+
+  
+  
+  
+
+  
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BigFoot Exploration Dataset">
+  <meta property="og:description" content="This notebook shows two different visualizations for the bigfoot dataset!">
+  <meta property="og:image" content="assets/pngs/bigfoot.png">
+
+  <title>BigFoot Exploration Dataset</title>
+  <meta name="description" content="This notebook shows two different visualizations for the bigfoot dataset!">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+
+  <!-- Theme style -->
+  <script src="/assets/js/theme.js"></script>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
+  <!-- Animate CSS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+
+<body class="h-100 d-flex flex-column">
+
+  <main class="flex-shrink-0 container mt-5">
+    <nav class="navbar navbar-expand-lg navbar-themed">
+
+  <a class="navbar-brand" href="/"><h5><b>IS445 Jekyll Template</b></h5></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-1x fa-bars text-themed"></i>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto"><a class="nav-item nav-link active" href="/projects/">Projects</a>
+
+      <a class="nav-item nav-link " href="/blog/">Blog</a>
+
+      <a class="nav-item nav-link " href="/about/">About</a>
+
+      
+
+      <span id="theme-toggler" class="nav-item nav-link" role="button" onclick="toggleTheme()"></span>
+    </div>
+  </div>
+
+</nav>
+    <div class="col-lg-10 mx-auto mt-5 markdown-body">
+  <h1 id="hw5---bigfoot-dataset-visualization--analysis">HW5 - Bigfoot Dataset Visualization + Analysis</h1>
+
+<p> These are the two visualizations that I created for the bigfoot dataset.</p>
+
+<p><br /></p>
+
+<h2 id="plot-1---mapping-bigfoot-sightings-across-longitude-and-latitude-using-zselection">Plot 1 - Mapping bigfoot sightings across longitude and latitude using zselection</h2>
+
+<iframe src="/assets/plots/zselection_plot.html" width="100%" height="600" style="border:none;"></iframe>
+
+<p><strong>Description</strong></p>
+<p>I chose to visualize the longitude and latitude of different bigfoot sightings across all U.S. states using a selection zorder visualization. The purpose of this graph is to visually observe the frequency of bigfoot sightings in different U.S. states. I chose this visualization method to improve user interactivity and clarity by moving highlighted dots forward. Normally, it is difficult to select dots on a graph due to the small size of the dots. However, with selection zorder, highlighted dots come forward and other dots are minimized. As the user moves their cursor across the screen, the closest dot to the cursor appears in the foreground the other dots remain in the background to prevent overlapping. This reducing confusion and frustration during interpretation.</p>
+
+<p><strong>Data Transformations</strong></p>
+<p>I first started to see which data values I could replace with zero. However, I decided not to replace certain columns, such as 'date', with zero because 'date' cannot logically have a zero value. Instead, I chose to replace NaN values for the following columns:</p>
+
+<ul>
+<li> df['temperature_high'] = df['temperature_high'].replace(0, np.nan) </li>
+<li> df['temperature_low'] = df['temperature_high'].replace(0, np.nan) </li>
+<li> df['dew_point'] = df['dew_point'].replace(0, np.nan) </li>
+<li> df['humidity'] = df['humidity'].replace(0, np.nan) </li>
+<li> df['cloud_cover'] = df['cloud_cover'].replace(0, np.nan) </li>
+<li> df['moon_phase'] = df['moon_phase'].replace(0, np.nan) </li>
+<li> df['precip_intensity'] = df['precip_intensity'].replace(0, np.nan) </li>
+<li> df['precip_probability'] = df['precip_probability'].replace(0, np.nan) </li>
+<li> df['pressure'] = df['pressure'].replace(0, np.nan) </li>
+<li> df['visibility'] = df['visibility'].replace(0, np.nan) </li>
+<li> df['uv_index'] = df['uv_index'].replace(0, np.nan) </li>
+<li> df['wind_bearing'] = df['wind_bearing'].replace(0, np.nan) </li>
+<li> df['wind_speed'] = df['wind_speed'].replace(0, np.nan) </li>
+</ul>
+
+<p>Then I proceeded to drop NaN values for the rest of the columns that I found had null values in.</p>
+
+<p><strong>Encoding</strong></p>
+<p> I used longitude as a quantitative variable for the X-axis and latitude as a quantitative variable for the Y-axis to map the sightings across the U.S. As a result, the points on the graph resemble the U.S. map, making the visualization easier to interpret. I chose the 'category20' color scheme to represent the different states. While some colors repeat, 'category20' was one of the few color schemes with a larger color palette. To address this, I increased the size of the legend to include more symbols, making it easier for users to discern which state a specific sighting belongs to. Additionally, I split the states into two columns to improve the legend's readability. I incorporated the following fields as tooltip values: 'longitude:Q', 'latitude:Q', 'visibility:Q', 'wind_speed:Q', 'date:N', 'state:N', 'county:N', 'season:N', and 'cloud_cover:Q'. These values were selected to help assess the validity and reliability of bigfoot sightings. Visibility indicates whether a bigfoot could be seen, while cloud cover determines how much light passes through the clouds, indirectly affecting visibility and the likelihood of a sighting. Wind speed, which can make it harder to spot anything, was also included as an interesting metric. Longitude and latitude provide the exact location, while county and state further describe the sighting's location. The date specifies when the sighting occurred. I added the 'add_params' encoding parameter to enable the hover effect for zselection. Finally, I created a side-by-side comparison to demonstrate how the graph appears when the points are obscured versus when they are not. </p>
+
+<p><strong>Interesting Observation!</strong></p>
+<p>I was surprised to see that many bigfoot sightings were not spotted in Alaska due to its relative remoteness. This does make sense since Alaska has a lower population compared to the rest of the U.S., which means fewer sightings are reported. I do wonder if the reported sightings would increase if the population in Alaska were to increase. I was surprised to see these sightings be reported even when the cloud cover was above 0.8 for all three reportings. However, other factors such as wind speed and visibility also determine the likelihood of a sighting, which is why it is possible these sightings were reported.</p>
+
+<p><br />
+<br />
+————————————————————————————————————————————————————————————————
+<br />
+<br /></p>
+
+<h2 id="plot-2---viewing-classified-bigfoot-sightings-across-different-us-counties-from-1950-2018-using-a-scatter-plot">Plot 2 - Viewing classified bigfoot sightings across different U.S. counties from 1950-2018 using a scatter plot</h2>
+
+<iframe src="/assets/plots/scatter_plot.html" width="130%" height="950" style="border:none;"></iframe>
+
+<p><strong>Description</strong></p>
+<p> I chose to visualize the precipation intensity and visibility of bigfoot sightings in different U.S. counties from 1990-2015. The visualization method I chose is a scatter plot with point paths on hover with search box. This allows the user to search for a county and that specific point is highlighted on the graph if a data point exists for a certain year. The user can also use the slider to modify the year in 5 year increments. I chose a step size of 5 to be able to parse through the years quickly rather than one by one. I also narrowed from 1990-2015 because many bigfoot sightings were not spotted before 1990. I chose 2015 as the upper limit so there is no discrepancy when the user interacts with the slider. When set to another value, the slider cannot reach its maximum value which is misleading to the user. When a user clicks on a dot, a trail is created between other dots for the same county even if the years are different. These dots are also color coded by classification to determine class of a bigfoot finding. I also allowed the user to pan and zoom with this graph becauses some of the data points are clustered, making it difficult to read the years and county names as well as being able to view a line between the data points. </p>
+
+<p><strong>Data Transformations</strong></p>
+<p> I first converted date to datetime so I can then convert it into a year to be used as an integer for my visualization: </p>
+<ul>
+<li>df_cleaned['date'] = pd.to_datetime(df_cleaned['date'], errors='coerce')</li>
+<li>df_cleaned['year'] = df_cleaned['date'].dt.year</li>
+</ul>
+
+<p><strong>Encoding</strong></p>
+<p>I encoded 'precip_intensity' as a quantitative variable because the values are numerical. The same goes for visibility. I encoded 'county' as a nominal variable since county is a categorical variable. The text variable determines what text is displayed on the graph and this allows the user to see a county when they click on a specific data point. The opacity variable helps determine the level of shading a data point inherits when a user clicks on it. When the user clicks on a data point, the value is one and when unselected, the value is zero. I used the 'dark2' color scheme for classification because classification is an ordinal categorical variable. The color of the line is darker for enhanced readability, especially if there are other unrelated data points around. For the base trail, the year variable is a quantitative variable to connect the data points and to also determine the thickness of the line in numerical order. For the base text, year was encoded as an ordinal variable because year is being treated as a label which usually works well with categorical variables. As a quantitative variable, certain scaling transformations may apply which can affect the way year is displayed on the graph. </p>
+
+<p><strong>Interesting Observation!</strong></p>
+<p> I noticed that some counties do not have lines connecting their data points while some do. This may be due to the fact that there is not a notable change in data or there is not enough data for a specific county. Some counties have only one data point so no connecting line is formed. It is also possible that showing lines for certain counties may be convoluting and not display a specific trend, so no connecting line is displayed. </p>
+
+<div class="left">
+<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/spatel54/spatel54.github.io/blob/725f63d7ebc40c615a8ff2f72891eef93d7db924/assets/json/bfro_reports_fall2022.json">
+  The Data
+</a>
+</div>
+
+<div class="right">
+<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/spatel54/spatel54.github.io/blob/725f63d7ebc40c615a8ff2f72891eef93d7db924/python_notebooks/Workbook_1.ipynb">
+  The Analysis
+</a>
+</div>
+
+
+</div>
+  </main>
+  <footer class="mt-auto py-3 text-center">
+
+  <small class="text-muted mb-2">
+    <i class="fas fa-code"></i> with <i class="fas fa-heart"></i>
+    by <strong>A. P. Corgi</strong>
+  </small>
+
+  <div class="container-fluid justify-content-center"><a class="social mx-1"  href="mailto:username@domain.com"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#db4437'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fas fa-envelope fa-1x"></i>
+    </a><a class="social mx-1"  href="https://www.github.com/jnaiman"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#333333'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fab fa-github fa-1x"></i>
+    </a><a class="social mx-1"  href="https://www.twitter.com/your_username"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#1da1f2'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fab fa-twitter fa-1x"></i>
+    </a><a class="social mx-1"  href="https://www.youtube.com/your_channel_name"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#ff0000'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fab fa-youtube fa-1x"></i>
+    </a>
+
+</div>
+
+  Theme by <a href="https://github.com/YoussefRaafatNasry/portfolYOU">portfolYOU</a> and <a href="https://github.com/4dcu-be/4dcu.be">4dcu.be</a>.
+
+  
+<!--<small id="attribution">
+    theme <a href="https://github.com/YoussefRaafatNasry/portfolYOU">portfolYOU</a>
+  </small>
+-->
+
+</footer>
+
+
+<!-- Custom page specific js files -->
+  
+    <script src='/assets/js/vega.min.js' type="text/javascript"></script>
+  
+    <script src='/assets/js/vega-lite.min.js' type="text/javascript"></script>
+  
+    <script src='/assets/js/vega-embed.min.js' type="text/javascript"></script>
+  
+    <script src='/assets/js/justcharts.js' type="text/javascript"></script>
+  
+
+
+
+  
+  <!-- GitHub Buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS CDN -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- wow.js CDN & Activation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script> new WOW().init(); </script>
+
+<!-- Initialize all tooltips -->
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+</body>
+
+<!--
+end of checks! JPN
+-->
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
