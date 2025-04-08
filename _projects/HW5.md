@@ -8,12 +8,13 @@ custom_js:
   - vega-lite.min
   - vega-embed.min
   - justcharts
+permalink: /projects/HW5
 ---
 
 
-<iframe src="/assets/scatter.html" width="100%" height="600" style="border:none;"></iframe>
+<iframe src="/assets/plots/scatter.html" width="100%" height="600" style="border:none;"></iframe>
 
-<iframe src="/assets/zselection.html" width="100%" height="600" style="border:none;"></iframe>
+<iframe src="/assets/plots/zselection.html" width="100%" height="600" style="border:none;"></iframe>
 
 
 <div class="left">
