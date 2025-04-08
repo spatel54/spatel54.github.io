@@ -1,8 +1,8 @@
 ---
-name: Vega Lite Example Project
-tools: [Python, HTML, vega-lite]
-image: assets/pngs/cars.png
-description: This is a "showcase" project that uses vega-lite for interactive viz!
+name: BigFoot Exploration Dataset
+tools: [Python, HTML, vega-lite, altair]
+image: assets/pngs/bigfoot.jpg
+description: This notebook shows two different visualizations for the bigfoot dataset!
 custom_js:
   - vega.min
   - vega-lite.min
