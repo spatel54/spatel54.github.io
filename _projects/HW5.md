@@ -1,7 +1,7 @@
 ---
 name: BigFoot Exploration Dataset
 tools: [Python, HTML, vega-lite, altair]
-image: assets/pngs/bigfoot.jpg
+image: assets/pngs/bigfoot.png
 description: This notebook shows two different visualizations for the bigfoot dataset!
 custom_js:
   - vega.min
@@ -16,8 +16,7 @@ custom_js:
 <vegachart schema-url="{{ site.baseurl }}/assets/json/cars.json" style="width: 100%"></vegachart>
 ```
 
-<vegachart schema-url="{{ site.baseurl }}/assets/json/bfro_reports_fall2022.json)" style="width: 100%"></vegachart>
-
+<vegachart schema-url="{{ site.baseurl }}/assets/json/bfro_reports_fall2022.json" style="width: 100%"></vegachart>
 
 ## Search The Data & Methods
 
